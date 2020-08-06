@@ -12,18 +12,13 @@ end
 def parsed_response(file)
   file.each do |call|
     if call.dig('chars').downcase.include?('invoice#') || call.dig('chars').downcase.include?('invoice #')
-      call['chars'] = char_parser(call['chars'])
+      call['chars'] = chars_cleaner(call['chars'])
     end
   end
 end
 
-def char_parser(char)
-  char = chars_cleaner(char)
-  char.split(" ")
-end
-
 def chars_cleaner(chars)
-  chars.gsub!(/[^0-9A-Za-z]/, ' ')
+  chars.gsub!(/[^0-9A-Za-z]/, ' ').split(" ")
 end
 
 
